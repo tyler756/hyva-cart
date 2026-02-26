@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import UtilityBar from "@/components/cart/UtilityBar";
+
 import StoreHeader from "@/components/cart/StoreHeader";
 import CartHeader from "@/components/cart/CartHeader";
 import CartItem, { type CartItemData } from "@/components/cart/CartItem";
@@ -75,7 +75,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <UtilityBar />
+      
       <StoreHeader cartCount={totalItems} />
 
       <main className="container max-w-7xl mx-auto px-4 py-8">
