@@ -71,6 +71,7 @@ interface CartSummaryProps {
   youSaved?: number;
   additionalDiscounts?: number;
   shippingMethod?: string;
+  tax?: number;
   appliedCoupons?: AppliedCoupon[];
 }
 
@@ -116,9 +117,9 @@ const CollapsibleSection = ({
   );
 };
 
-const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0, shippingMethod, appliedCoupons = [] }: CartSummaryProps) => {
+const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0, shippingMethod, tax = 0, appliedCoupons = [] }: CartSummaryProps) => {
   const [discountCode, setDiscountCode] = useState("");
-  const grandTotal = subtotal - additionalDiscounts + shipping;
+  const grandTotal = subtotal - additionalDiscounts + shipping + tax;
 
   return (
     <div className="bg-card rounded-xl border p-6 sticky top-6 space-y-5">
@@ -230,6 +231,14 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
           </span>
           <span className="font-medium text-foreground">
             {shipping === 0 ? "Free" : `$${shipping.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
+          </span>
+        </div>
+
+        {/* Tax */}
+        <div className="flex justify-between text-sm py-2.5 border-b">
+          <span className="text-muted-foreground">Tax</span>
+          <span className="font-medium text-foreground">
+            ${tax.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </span>
         </div>
 
