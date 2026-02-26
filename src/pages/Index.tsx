@@ -1,3 +1,37 @@
+/**
+ * ============================================================
+ * CART PAGE — Main Layout (Index.tsx)
+ * ============================================================
+ *
+ * HYVÄ MAGENTO IMPLEMENTATION NOTES:
+ * - This is the main cart page layout. In Hyvä, this maps to the
+ *   `checkout_cart_index.xml` layout and the cart template override.
+ * - State management here (useState) should be replaced by
+ *   Alpine.js `x-data` on the cart container div.
+ * - The two-column layout uses CSS Grid/Flexbox — translate
+ *   Tailwind classes directly since Hyvä ships with Tailwind.
+ *
+ * LAYOUT STRUCTURE:
+ * ┌─────────────────────────────────────────────────┐
+ * │ StoreHeader (site-wide nav)                     │
+ * ├─────────────────────────────────────────────────┤
+ * │ CartHeader ("Shopping Cart" title)              │
+ * ├──────────────────────┬──────────────────────────┤
+ * │ Action Bar           │                          │
+ * │ ProtectionPlan       │ PriceMatchBanner         │
+ * │ Column Headers       │ CartSummary (STICKY)     │
+ * │ CartItem (repeated)  │                          │
+ * │ Bottom Action Bar    │                          │
+ * ├──────────────────────┴──────────────────────────┤
+ * │ Footer (ResellerRatings)                        │
+ * └─────────────────────────────────────────────────┘
+ * │ Sticky Mobile Checkout (fixed bottom, lg:hidden)│
+ *
+ * RESPONSIVE BREAKPOINTS:
+ * - Mobile: single column, sticky checkout bar at bottom
+ * - Desktop (lg: 1024px+): two-column, sticky summary sidebar
+ */
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -13,6 +47,19 @@ import cabinetDoor from "@/assets/cabinet-door-sample.webp";
 import baseCabinet from "@/assets/base-cabinet.webp";
 import wallCabinet from "@/assets/wall-cabinet.webp";
 
+/**
+ * SAMPLE CART DATA
+ * In Hyvä Magento, this data comes from the cart API / PHP view model.
+ * Replace with Magento's quote item data:
+ *   - id → quote item ID
+ *   - name → product name
+ *   - sku → product SKU
+ *   - image → product thumbnail URL
+ *   - price → final price (after catalog rules)
+ *   - originalPrice → regular price (before discount)
+ *   - qty → quantity in cart
+ *   - options → configurable/custom options array
+ */
 const initialItems: CartItemData[] = [
   {
     id: "1",
@@ -102,33 +149,67 @@ const initialItems: CartItemData[] = [
 ];
 
 const Index = () => {
+  /**
+   * HYVÄ NOTE: Replace useState with Alpine.js reactive data.
+   * Example: x-data="{ items: <?= $escaper->escapeHtmlAttr($cartJson) ?> }"
+   */
   const [items, setItems] = useState<CartItemData[]>(initialItems);
 
+  /**
+   * QUANTITY CHANGE HANDLER
+   * In Hyvä, this should call the Magento cart update API:
+   *   POST /rest/V1/carts/mine/items/{itemId}
+   * Or use the Hyvä cart section update mechanism.
+   */
   const handleQtyChange = (id: string, qty: number) => {
     setItems((prev) =>
       prev.map((item) => (item.id === id ? { ...item, qty } : item))
     );
   };
 
+  /**
+   * REMOVE HANDLER
+   * In Hyvä, call: DELETE /rest/V1/carts/mine/items/{itemId}
+   * Then refresh cart sections via Magento's customer-data mechanism.
+   */
   const handleRemove = (id: string) => {
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  /** Computed totals — In Magento, use quote totals from the API */
   const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
   const totalItems = items.reduce((sum, item) => sum + item.qty, 0);
 
   return (
     <div className="min-h-screen bg-background">
       
+      {/* ============================================
+          STORE HEADER — Site-wide navigation bar
+          In Hyvä: this is the default header template
+          ============================================ */}
       <StoreHeader cartCount={totalItems} />
 
       <main className="container max-w-7xl mx-auto px-4 py-8">
+        {/* Cart page title */}
         <CartHeader itemCount={totalItems} />
 
+        {/* ============================================
+            TWO-COLUMN LAYOUT
+            - Left: cart items (flex-1, takes remaining space)
+            - Right: summary sidebar (fixed 380px width on desktop)
+            - Stacks vertically on mobile (flex-col → lg:flex-row)
+            ============================================ */}
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Cart Items */}
+
+          {/* ==========================================
+              LEFT COLUMN: Cart Items
+              ========================================== */}
           <section className="flex-1 min-w-0" aria-label="Cart items">
-            {/* Top actions row */}
+
+            {/* TOP ACTION BAR
+                - "Continue Shopping" left-aligned
+                - Clear / Update / Save right-aligned
+                HYVÄ NOTE: Wire these to Magento form actions */}
             <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
                 <ArrowLeft className="h-4 w-4" />
@@ -149,18 +230,23 @@ const Index = () => {
               </button>
               </div>
             </div>
-            {/* Protection Plan upsell */}
+
+            {/* PROTECTION PLAN UPSELL
+                HYVÄ NOTE: Conditionally render based on cart value
+                or product category eligibility */}
             <div className="mb-6">
               <ProtectionPlan />
             </div>
 
             {items.length === 0 ? (
+              /* EMPTY CART STATE */
               <div className="text-center py-16">
                 <p className="text-lg text-muted-foreground">Your cart is empty.</p>
               </div>
             ) : (
               <>
-                {/* Column headers (desktop) */}
+                {/* COLUMN HEADERS — Desktop only (hidden on mobile)
+                    4-column grid: Item | Price | Qty | Subtotal */}
                 <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-6 px-4 pb-2 text-xs font-medium text-muted-foreground uppercase tracking-wide border-b">
                   <span>Item</span>
                   <span className="w-24 text-right">Price</span>
@@ -168,6 +254,7 @@ const Index = () => {
                   <span className="w-24 text-right">Subtotal</span>
                 </div>
 
+                {/* CART ITEM ROWS — Rendered from cart data */}
                 <div>
                   {items.map((item) => (
                     <CartItem
@@ -179,7 +266,7 @@ const Index = () => {
                   ))}
                 </div>
 
-                {/* Bottom actions */}
+                {/* BOTTOM ACTION BAR — Mirrors top action bar */}
                 <div className="flex flex-wrap items-center justify-between gap-3 mt-6 pt-6 border-t">
                   <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
                     <ArrowLeft className="h-4 w-4" />
@@ -204,7 +291,12 @@ const Index = () => {
             )}
           </section>
 
-          {/* Summary Sidebar */}
+          {/* ==========================================
+              RIGHT COLUMN: Summary Sidebar
+              - Fixed width 380px on desktop (lg:w-[380px])
+              - Full width on mobile
+              - Contains PriceMatchBanner + CartSummary
+              ========================================== */}
           <aside className="w-full lg:w-[380px] flex-shrink-0 space-y-4">
             <PriceMatchBanner />
             <CartSummary subtotal={subtotal} shipping={0} />
@@ -212,14 +304,20 @@ const Index = () => {
         </div>
       </main>
 
-      {/* ResellerRatings footer */}
+      {/* FOOTER — ResellerRatings social proof */}
       <footer className="border-t mt-12 py-6 text-center">
         <p className="text-sm text-muted-foreground">
           ⭐ <span className="font-bold text-foreground">4.9</span> ResellerRatings · 3,400+ Reviews · Verified Store
         </p>
       </footer>
 
-      {/* Sticky mobile checkout CTA */}
+      {/* ============================================
+          STICKY MOBILE CHECKOUT BAR
+          - Fixed to bottom of viewport on mobile/tablet
+          - Hidden on desktop (lg:hidden)
+          - Shows total + "Proceed to Checkout" CTA
+          HYVÄ NOTE: Wire button to Magento checkout URL
+          ============================================ */}
       {items.length > 0 && (
         <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-background border-t shadow-[0_-4px_12px_rgba(0,0,0,0.1)] px-4 py-3">
           <div className="flex items-center justify-between gap-4">
