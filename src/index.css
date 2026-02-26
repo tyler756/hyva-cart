@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    /* Bone White background */
-    --background: 48 19% 95%;
+    /* White background */
+    --background: 0 0% 100%;
     --foreground: 224 13% 15%;
 
     /* Card surfaces - pure bone white */
