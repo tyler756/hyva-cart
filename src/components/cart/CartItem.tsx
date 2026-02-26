@@ -26,7 +26,7 @@ const CartItem = ({ item, onQtyChange, onRemove }: CartItemProps) => {
   const hasDiscount = !!item.originalPrice && item.originalPrice > item.price;
 
   return (
-    <div className="group relative py-5 border-b last:border-b-0">
+    <div className="group relative py-6 border-b last:border-b-0">
       {/* Desktop layout */}
       <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-6 items-center">
         {/* Item info */}
