@@ -9,6 +9,8 @@ import {
   Gift,
   CreditCard,
   ShieldCheck,
+  Zap,
+  Lock,
 } from "lucide-react";
 
 interface CartSummaryProps {
@@ -33,10 +35,9 @@ const CollapsibleSection = ({
     <div className="border-t pt-4">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full text-sm font-medium text-foreground hover:text-primary transition-colors"
+        className="flex items-center justify-between w-full text-sm font-medium text-foreground hover:text-primary transition-colors uppercase tracking-wide"
       >
         <span className="flex items-center gap-2">
-          <Icon className="h-4 w-4 text-primary" />
           {title}
         </span>
         {open ? (
@@ -56,28 +57,55 @@ const CartSummary = ({ subtotal, shipping }: CartSummaryProps) => {
 
   return (
     <div className="bg-card rounded-xl border p-6 sticky top-6 space-y-5">
-      <h2 className="font-display text-xl font-bold text-foreground">
+      <h2 className="font-display text-xl font-bold text-foreground uppercase tracking-wide">
         Summary
       </h2>
 
-      {/* Proceed to Checkout */}
-      <Button className="w-full h-12 text-base font-semibold rounded-lg" size="lg">
-        Proceed to Checkout
-      </Button>
+      {/* Collapsible sections */}
+      <CollapsibleSection icon={Tag} title="Apply Discount Code">
+        <div className="flex gap-2">
+          <Input
+            placeholder="Enter discount code"
+            value={discountCode}
+            onChange={(e) => setDiscountCode(e.target.value)}
+            className="h-10"
+          />
+          <Button variant="secondary" className="h-10 px-4 font-semibold shrink-0">
+            Apply
+          </Button>
+        </div>
+      </CollapsibleSection>
 
-      {/* Payment methods */}
-      <div className="flex items-center justify-center gap-3">
-        <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-3 py-1.5 rounded-md font-medium">
-          <CreditCard className="h-3.5 w-3.5" />
-          Link
+      <CollapsibleSection icon={Gift} title="Redeem Points">
+        <p className="text-xs text-muted-foreground">
+          Please login to use reward points.
+        </p>
+      </CollapsibleSection>
+
+      <CollapsibleSection icon={Truck} title="Estimate Shipping and Tax">
+        <p className="text-xs text-muted-foreground mb-3">
+          Enter your destination to get a shipping estimate.
+        </p>
+        <div className="space-y-3">
+          <div>
+            <label className="text-xs font-medium text-foreground mb-1 block">Country</label>
+            <select className="w-full h-10 rounded-lg border bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+              <option>United States</option>
+              <option>Canada</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-foreground mb-1 block">State/Province</label>
+            <select className="w-full h-10 rounded-lg border bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+              <option>Please select a region</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-medium text-foreground mb-1 block">Zip/Postal Code</label>
+            <Input className="h-10" placeholder="Enter zip code" />
+          </div>
         </div>
-        <div className="text-xs text-muted-foreground bg-muted px-3 py-1.5 rounded-md font-medium">
-          Klarna
-        </div>
-        <div className="text-xs text-muted-foreground bg-muted px-3 py-1.5 rounded-md font-medium">
-          Amazon Pay
-        </div>
-      </div>
+      </CollapsibleSection>
 
       {/* Totals */}
       <div className="space-y-2 border-t pt-4">
@@ -94,71 +122,67 @@ const CartSummary = ({ subtotal, shipping }: CartSummaryProps) => {
           </span>
         </div>
         <div className="flex justify-between text-lg font-bold pt-2 border-t">
-          <span className="text-foreground">Grand Total</span>
-          <span className="text-primary">
+          <span className="text-foreground uppercase">Grand Total</span>
+          <span className="text-secondary">
             ${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </span>
         </div>
       </div>
 
-      {/* Discount Code */}
-      <CollapsibleSection icon={Tag} title="Apply Discount Code" defaultOpen>
-        <div className="flex gap-2">
-          <Input
-            placeholder="Enter discount code"
-            value={discountCode}
-            onChange={(e) => setDiscountCode(e.target.value)}
-            className="h-10"
-          />
-          <Button variant="secondary" className="h-10 px-4 font-semibold shrink-0">
-            Apply
-          </Button>
-        </div>
-      </CollapsibleSection>
+      {/* T&C */}
+      <p className="text-[11px] text-muted-foreground text-center">
+        By placing your order, you agree to The RTA Store's{" "}
+        <a href="#" className="underline hover:text-foreground">terms and conditions</a>.
+      </p>
 
-      {/* Shipping Estimate */}
-      <CollapsibleSection icon={Truck} title="Estimate Shipping & Tax">
-        <p className="text-xs text-muted-foreground mb-3">
-          Enter your destination to get a shipping estimate.
+      {/* Checkout Button */}
+      <Button className="w-full h-12 text-base font-semibold rounded-lg gap-2" size="lg">
+        <Zap className="h-4 w-4" />
+        Checkout
+      </Button>
+
+      {/* Payment method icons */}
+      <div className="flex items-center justify-center gap-2 flex-wrap">
+        {["Amazon", "Visa", "Mastercard", "Amex", "Discover", "PayPal", "Apple Pay", "GPay"].map((method) => (
+          <span
+            key={method}
+            className="text-[10px] text-muted-foreground bg-muted border px-2 py-1 rounded font-medium"
+          >
+            {method}
+          </span>
+        ))}
+      </div>
+
+      {/* More checkout options */}
+      <div className="border-t pt-4 space-y-2">
+        <p className="text-xs text-center text-muted-foreground uppercase tracking-wide font-medium">
+          More Checkout Options
         </p>
-        <div className="space-y-3">
-          <div>
-            <label className="text-xs font-medium text-foreground mb-1 block">
-              Country
-            </label>
-            <select className="w-full h-10 rounded-lg border bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
-              <option>United States</option>
-              <option>Canada</option>
-            </select>
+        <div className="space-y-1.5">
+          {["Checkout with bread pay", "Checkout with Sezzle", "PayPal", "Check by mail", "Pay with multiple cards"].map((opt) => (
+            <button
+              key={opt}
+              className="w-full text-xs border rounded-lg py-2 px-3 text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* TrustedSite badge */}
+      <div className="border-t pt-4">
+        <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+          <div className="flex items-center gap-1.5">
+            <Lock className="h-3.5 w-3.5 text-primary" />
+            <span>Secure Checkout</span>
           </div>
-          <div>
-            <label className="text-xs font-medium text-foreground mb-1 block">
-              State/Province
-            </label>
-            <select className="w-full h-10 rounded-lg border bg-card px-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
-              <option>Please select a region</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-xs font-medium text-foreground mb-1 block">
-              Zip/Postal Code
-            </label>
-            <Input className="h-10" placeholder="Enter zip code" />
+          <div className="h-3 w-px bg-border" />
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+            <span>Verified Business</span>
           </div>
         </div>
-      </CollapsibleSection>
-
-      {/* Redeem Points */}
-      <CollapsibleSection icon={Gift} title="Redeem Points">
-        <p className="text-xs text-muted-foreground">
-          Please login to use reward points.
-        </p>
-      </CollapsibleSection>
-
-      {/* Trust badge */}
-      <div className="flex items-center justify-center gap-2 pt-2 text-xs text-muted-foreground">
-        <ShieldCheck className="h-4 w-4 text-success" />
-        <span>Secure checkout · SSL encrypted</span>
       </div>
     </div>
   );
