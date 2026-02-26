@@ -1,3 +1,41 @@
+/**
+ * ============================================================
+ * DESIGN TOKENS & GLOBAL STYLES (index.css)
+ * ============================================================
+ *
+ * This file defines the complete color system and typography
+ * for the cart page. All colors use HSL format.
+ *
+ * HYVÄ MAGENTO IMPLEMENTATION:
+ * - Copy these CSS custom properties into your Hyvä theme's
+ *   tailwind.config.js and/or global CSS file.
+ * - Hyvä already uses Tailwind, so these tokens map directly.
+ * - Add these to your theme's `web/tailwind/tailwind-source.css`
+ *   or equivalent entry point.
+ *
+ * COLOR PALETTE OVERVIEW:
+ * ┌────────────────────┬──────────────────────────────────────┐
+ * │ Token              │ Description                          │
+ * ├────────────────────┼──────────────────────────────────────┤
+ * │ --background       │ Page background (white)              │
+ * │ --foreground       │ Primary text (dark navy)             │
+ * │ --card             │ Card/panel surfaces (bone white)     │
+ * │ --primary          │ Meadow Mint green (CTAs, links)      │
+ * │ --secondary        │ Burnished Copper (accents, totals)   │
+ * │ --muted            │ Mist Sage (subtle backgrounds)       │
+ * │ --muted-foreground │ Secondary text (gray)                │
+ * │ --accent           │ Light mint (banners, highlights)     │
+ * │ --destructive      │ Red (errors, sale prices, delete)    │
+ * │ --border           │ Slate grey borders                   │
+ * │ --ring             │ Focus ring color (copper)            │
+ * └────────────────────┴──────────────────────────────────────┘
+ *
+ * TYPOGRAPHY:
+ * - Display/Headings: 'Playfair Display' (serif)
+ * - Body/UI text: 'Inter' (sans-serif)
+ * - Utility classes: .font-display, .font-body
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -6,47 +44,54 @@
 
 @layer base {
   :root {
-    /* White background */
-    --background: 0 0% 100%;
-    --foreground: 224 13% 15%;
+    /* ── Page Background ── */
+    --background: 0 0% 100%;          /* Pure white */
+    --foreground: 224 13% 15%;         /* Dark navy — primary text */
 
-    /* Card surfaces - pure bone white */
-    --card: 48 15% 97%;
+    /* ── Card & Panel Surfaces ── */
+    --card: 48 15% 97%;               /* Bone white — subtle off-white */
     --card-foreground: 224 13% 15%;
 
     --popover: 48 15% 97%;
     --popover-foreground: 224 13% 15%;
 
-    /* Meadow Mint - primary brand (checkout CTA) */
+    /* ── Primary: Meadow Mint Green ──
+       Used for: checkout CTA, links, active states, trust icons */
     --primary: 160 40% 31%;
     --primary-foreground: 48 19% 97%;
 
-    /* Burnished Copper - secondary */
+    /* ── Secondary: Burnished Copper ──
+       Used for: grand total price, protection plan highlights,
+       "GUARANTEE" text, accent badges */
     --secondary: 22 47% 48%;
     --secondary-foreground: 48 19% 97%;
 
-    /* Mist Sage - muted */
+    /* ── Muted: Mist Sage ──
+       Used for: secondary text, labels, subtle backgrounds */
     --muted: 120 5% 91%;
     --muted-foreground: 224 10% 42%;
 
-    /* Meadow Mint light - accent */
+    /* ── Accent: Meadow Mint Light ──
+       Used for: banner backgrounds (protection plan, price match) */
     --accent: 160 25% 90%;
     --accent-foreground: 160 40% 22%;
 
+    /* ── Destructive: Red ──
+       Used for: sale/discount prices, delete hover, error states */
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Slate Grey borders */
-    --border: 120 5% 85%;
+    /* ── Borders & Inputs ── */
+    --border: 120 5% 85%;             /* Slate grey */
     --input: 120 5% 85%;
-    --ring: 22 47% 48%;
+    --ring: 22 47% 48%;               /* Copper — focus ring */
 
-    --radius: 0.5rem;
+    --radius: 0.5rem;                 /* Default border radius */
 
     --success: 160 40% 31%;
     --success-foreground: 48 19% 97%;
 
-    /* Slate Grey for sidebar */
+    /* ── Sidebar (not used in cart, but defined for completeness) ── */
     --sidebar-background: 224 13% 20%;
     --sidebar-foreground: 48 19% 95%;
     --sidebar-primary: 22 47% 48%;
@@ -56,9 +101,11 @@
     --sidebar-border: 224 10% 28%;
     --sidebar-ring: 22 47% 48%;
 
+    /* Base font family */
     font-family: 'Inter', system-ui, sans-serif;
   }
 
+  /* ── Dark Mode Tokens (not actively used in cart) ── */
   .dark {
     --background: 224 13% 10%;
     --foreground: 48 19% 95%;
@@ -99,16 +146,19 @@
     @apply bg-background text-foreground antialiased;
   }
 
+  /* Headings use Playfair Display serif font */
   h1, h2, h3 {
     font-family: 'Playfair Display', serif;
   }
 }
 
 @layer utilities {
+  /** Display font — use on headings and logo */
   .font-display {
     font-family: 'Playfair Display', serif;
   }
 
+  /** Body font — use on all UI text */
   .font-body {
     font-family: 'Inter', system-ui, sans-serif;
   }
