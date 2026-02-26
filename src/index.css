@@ -17,12 +17,12 @@
     --popover: 48 15% 97%;
     --popover-foreground: 224 13% 15%;
 
-    /* Burnished Copper - primary brand */
-    --primary: 22 47% 48%;
+    /* Meadow Mint - primary brand (checkout CTA) */
+    --primary: 160 40% 31%;
     --primary-foreground: 48 19% 97%;
 
-    /* Meadow Mint - secondary */
-    --secondary: 160 40% 31%;
+    /* Burnished Copper - secondary */
+    --secondary: 22 47% 48%;
     --secondary-foreground: 48 19% 97%;
 
     /* Mist Sage - muted */
