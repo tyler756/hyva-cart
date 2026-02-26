@@ -28,7 +28,7 @@ const CartItem = ({ item, onQtyChange, onRemove }: CartItemProps) => {
   return (
     <div className="group py-3 border-b last:border-b-0">
       {/* Desktop layout */}
-      <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-6 items-start">
+      <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-6 items-center">
         {/* Item info */}
         <div className="flex gap-4">
           <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted flex-shrink-0 border">
