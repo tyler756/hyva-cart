@@ -6,51 +6,51 @@
 
 @layer base {
   :root {
-    /* White background */
+    /* Pure white background */
     --background: 0 0% 100%;
-    --foreground: 224 13% 15%;
+    /* Slate Grey #40444F */
+    --foreground: 224 11% 28%;
 
-    /* Card surfaces - pure bone white */
-    --card: 48 15% 97%;
-    --card-foreground: 224 13% 15%;
+    /* Bone White #F4F3EF */
+    --card: 40 14% 95%;
+    --card-foreground: 224 11% 28%;
 
-    --popover: 48 15% 97%;
-    --popover-foreground: 224 13% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 11% 28%;
 
-    /* Meadow Mint - primary brand (checkout CTA) */
+    /* Meadow Mint #2F6F5A */
     --primary: 160 40% 31%;
-    --primary-foreground: 48 19% 97%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Burnished Copper - secondary */
+    /* Burnished Copper #B56C42 */
     --secondary: 22 47% 48%;
-    --secondary-foreground: 48 19% 97%;
+    --secondary-foreground: 0 0% 100%;
 
-    /* Mist Sage - muted */
-    --muted: 120 5% 91%;
-    --muted-foreground: 224 10% 42%;
+    /* Mist Sage #9BA59F at ~5-8% tint */
+    --muted: 140 5% 93%;
+    --muted-foreground: 224 8% 46%;
 
-    /* Meadow Mint light - accent */
-    --accent: 160 25% 90%;
+    /* Very light sage accent */
+    --accent: 140 8% 94%;
     --accent-foreground: 160 40% 22%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Slate Grey borders */
-    --border: 120 5% 85%;
-    --input: 120 5% 85%;
-    --ring: 22 47% 48%;
+    /* Slate Grey 20% opacity borders */
+    --border: 220 8% 88%;
+    --input: 220 8% 85%;
+    --ring: 160 40% 31%;
 
     --radius: 0.5rem;
 
     --success: 160 40% 31%;
-    --success-foreground: 48 19% 97%;
+    --success-foreground: 0 0% 100%;
 
-    /* Slate Grey for sidebar */
     --sidebar-background: 224 13% 20%;
     --sidebar-foreground: 48 19% 95%;
     --sidebar-primary: 22 47% 48%;
-    --sidebar-primary-foreground: 48 19% 97%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 224 13% 25%;
     --sidebar-accent-foreground: 48 19% 95%;
     --sidebar-border: 224 10% 28%;

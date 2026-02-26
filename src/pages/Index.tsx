@@ -78,7 +78,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      
       <StoreHeader cartCount={totalItems} />
 
       <main className="container max-w-7xl mx-auto px-4 py-8">
@@ -86,32 +85,9 @@ const Index = () => {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
-          <section className="flex-1 min-w-0" aria-label="Cart items">
-            {/* Top actions row */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-              <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
-                <ArrowLeft className="h-4 w-4" />
-                Continue Shopping
-              </a>
-              <div className="flex items-center gap-3">
-              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
-                <Trash2 className="h-3.5 w-3.5" />
-                Clear Shopping Cart
-              </button>
-              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <RefreshCw className="h-3.5 w-3.5" />
-                Update Shopping Cart
-              </button>
-              <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
-                <Bookmark className="h-3.5 w-3.5" />
-                Save Cart
-              </button>
-              </div>
-            </div>
+          <section className="flex-1 min-w-0 space-y-8" aria-label="Cart items">
             {/* Protection Plan upsell */}
-            <div className="mb-6">
-              <ProtectionPlan />
-            </div>
+            <ProtectionPlan />
 
             {items.length === 0 ? (
               <div className="text-center py-16">
@@ -139,22 +115,22 @@ const Index = () => {
                 </div>
 
                 {/* Bottom actions */}
-                <div className="flex flex-wrap items-center justify-between gap-3 mt-6 pt-6 border-t">
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t">
                   <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
                     <ArrowLeft className="h-4 w-4" />
                     Continue Shopping
                   </a>
                   <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
-                      <Trash2 className="h-3.5 w-3.5" />
-                      Clear Shopping Cart
+                    <button className="flex items-center gap-1.5 text-xs text-muted-foreground border rounded-lg px-3 py-1.5 hover:text-destructive hover:border-destructive/30 transition-colors">
+                      <Trash2 className="h-3 w-3" />
+                      Clear Cart
                     </button>
-                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                      <RefreshCw className="h-3.5 w-3.5" />
-                      Update Shopping Cart
+                    <button className="flex items-center gap-1.5 text-xs text-muted-foreground border rounded-lg px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors">
+                      <RefreshCw className="h-3 w-3" />
+                      Update Cart
                     </button>
-                    <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
-                      <Bookmark className="h-3.5 w-3.5" />
+                    <button className="flex items-center gap-1.5 text-xs text-muted-foreground border rounded-lg px-3 py-1.5 hover:text-foreground hover:border-foreground/30 transition-colors">
+                      <Bookmark className="h-3 w-3" />
                       Save Cart
                     </button>
                   </div>
@@ -171,16 +147,16 @@ const Index = () => {
         </div>
       </main>
 
-      {/* ResellerRatings footer */}
-      <footer className="border-t mt-12 py-6 text-center">
+      {/* Footer */}
+      <footer className="border-t mt-16 py-6 text-center">
         <p className="text-sm text-muted-foreground">
           ⭐ <span className="font-bold text-foreground">4.9</span> ResellerRatings · 3,400+ Reviews · Verified Store
         </p>
       </footer>
 
-      {/* Sticky mobile checkout CTA */}
+      {/* Sticky mobile checkout */}
       {items.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-background border-t shadow-[0_-4px_12px_rgba(0,0,0,0.1)] px-4 py-3">
+        <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-background border-t shadow-[0_-4px_12px_rgba(0,0,0,0.08)] px-4 py-3">
           <div className="flex items-center justify-between gap-4">
             <div className="text-sm">
               <span className="text-muted-foreground">Total: </span>

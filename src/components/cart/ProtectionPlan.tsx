@@ -2,24 +2,23 @@ import { Button } from "@/components/ui/button";
 import { ShieldCheck } from "lucide-react";
 
 const ProtectionPlan = () => (
-  <div className="bg-accent/30 border border-accent rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+  <div className="border rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-accent/30">
     <div className="flex items-start gap-3">
       <ShieldCheck className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
       <div>
-        <p className="text-sm font-bold text-secondary">Accident Protection Plan</p>
+        <p className="text-sm font-bold text-foreground">Accident Protection Plan</p>
         <p className="text-xs text-muted-foreground mt-0.5">
-          Protect your purchase from everyday life for 5 years with our{" "}
+          Protect your purchase for 5 years —{" "}
           <span className="line-through">$229</span>{" "}
-          <span className="font-bold text-secondary">$149</span>{" "}
-          Platinum Full Replacement Plan.
+          <span className="font-bold text-secondary">$149</span>
         </p>
-        <a href="#" className="text-xs text-primary font-medium hover:underline mt-1 inline-block">
+        <button className="text-xs text-muted-foreground hover:text-foreground mt-1 inline-block border rounded px-2 py-0.5 transition-colors">
           See what's covered
-        </a>
+        </button>
       </div>
     </div>
     <Button variant="secondary" size="sm" className="font-semibold shrink-0">
-      Add Now
+      Add Protection
     </Button>
   </div>
 );
