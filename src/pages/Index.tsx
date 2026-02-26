@@ -81,31 +81,32 @@ const Index = () => {
       <main className="container max-w-7xl mx-auto px-4 py-8">
         <CartHeader itemCount={totalItems} />
 
-        {/* Top actions row */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        {/* Continue Shopping link */}
+        <div className="mb-6">
           <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
             <ArrowLeft className="h-4 w-4" />
             Continue Shopping
           </a>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
-              <Trash2 className="h-3.5 w-3.5" />
-              Clear Shopping Cart
-            </button>
-            <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <RefreshCw className="h-3.5 w-3.5" />
-              Update Shopping Cart
-            </button>
-            <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
-              <Bookmark className="h-3.5 w-3.5" />
-              Save Cart
-            </button>
-          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
           <section className="flex-1 min-w-0" aria-label="Cart items">
+            {/* Top actions row */}
+            <div className="flex items-center justify-end gap-3 mb-6">
+              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
+                <Trash2 className="h-3.5 w-3.5" />
+                Clear Shopping Cart
+              </button>
+              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <RefreshCw className="h-3.5 w-3.5" />
+                Update Shopping Cart
+              </button>
+              <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+                <Bookmark className="h-3.5 w-3.5" />
+                Save Cart
+              </button>
+            </div>
             {/* Protection Plan upsell */}
             <div className="mb-6">
               <ProtectionPlan />
