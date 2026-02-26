@@ -60,12 +60,18 @@ import {
   Lock,
 } from "lucide-react";
 
+interface AppliedCoupon {
+  code: string;
+  label: string;
+}
+
 interface CartSummaryProps {
   subtotal: number;
   shipping: number;
   youSaved?: number;
   additionalDiscounts?: number;
   shippingMethod?: string;
+  appliedCoupons?: AppliedCoupon[];
 }
 
 /**
@@ -110,7 +116,7 @@ const CollapsibleSection = ({
   );
 };
 
-const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0, shippingMethod }: CartSummaryProps) => {
+const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0, shippingMethod, appliedCoupons = [] }: CartSummaryProps) => {
   const [discountCode, setDiscountCode] = useState("");
   const grandTotal = subtotal - additionalDiscounts + shipping;
 
@@ -190,11 +196,26 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
         </div>
 
         {additionalDiscounts > 0 && (
-          <div className="flex justify-between text-sm py-2.5 border-b">
-            <span className="text-primary font-medium">Additional Discounts</span>
-            <span className="text-primary font-medium">
-              - ${additionalDiscounts.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-            </span>
+          <div className="py-2.5 border-b">
+            <div className="flex justify-between text-sm">
+              <span className="text-primary font-medium">Additional Discounts</span>
+              <span className="text-primary font-medium">
+                - ${additionalDiscounts.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </span>
+            </div>
+            {appliedCoupons.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {appliedCoupons.map((coupon) => (
+                  <span
+                    key={coupon.code}
+                    className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full px-2.5 py-1"
+                  >
+                    <Tag className="h-3 w-3" />
+                    {coupon.label}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
