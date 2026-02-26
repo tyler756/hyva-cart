@@ -305,6 +305,7 @@ const Index = () => {
               youSaved={434.58}
               additionalDiscounts={225.92}
               shippingMethod="Ground Shipping - Standard Delivery"
+              tax={132.27}
               appliedCoupons={[
                 { code: "TAKE10", label: "Take10" },
                 { code: "CONTRACTOR10", label: "Contractor 10% Off" },
