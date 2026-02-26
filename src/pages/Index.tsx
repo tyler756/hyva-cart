@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import UtilityBar from "@/components/cart/UtilityBar";
 import StoreHeader from "@/components/cart/StoreHeader";
 import CartHeader from "@/components/cart/CartHeader";
 import CartItem, { type CartItemData } from "@/components/cart/CartItem";
 import CartSummary from "@/components/cart/CartSummary";
-import { Shield } from "lucide-react";
+import PriceMatchBanner from "@/components/cart/PriceMatchBanner";
+import ProtectionPlan from "@/components/cart/ProtectionPlan";
+import { ArrowLeft, Bookmark, RefreshCw, Trash2 } from "lucide-react";
 
 import cabinetDoor from "@/assets/cabinet-door-sample.webp";
 import baseCabinet from "@/assets/base-cabinet.webp";
@@ -14,6 +17,7 @@ const initialItems: CartItemData[] = [
   {
     id: "1",
     name: "Euro Cafe Sample Door",
+    sku: "EC-SD-001",
     image: cabinetDoor,
     price: 20.0,
     qty: 1,
@@ -21,6 +25,7 @@ const initialItems: CartItemData[] = [
   {
     id: "2",
     name: 'Euro Cafe 12" 2-Drawer Base Cabinet with 1 Inner Drawer',
+    sku: "EC-BC-1200",
     image: baseCabinet,
     price: 1011.11,
     qty: 1,
@@ -29,6 +34,7 @@ const initialItems: CartItemData[] = [
   {
     id: "3",
     name: 'Euro Cafe 12" 2-Drawer Base Cabinet',
+    sku: "EC-BC-1201",
     image: baseCabinet,
     price: 944.27,
     qty: 2,
@@ -37,6 +43,7 @@ const initialItems: CartItemData[] = [
   {
     id: "4",
     name: "Midtown Black Shaker 18x15 Wall Cabinet",
+    sku: "SW-W1830",
     image: wallCabinet,
     price: 1603.71,
     qty: 1,
@@ -68,15 +75,30 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <UtilityBar />
       <StoreHeader cartCount={totalItems} />
 
       <main className="container max-w-7xl mx-auto px-4 py-8">
-        {/* Warranty Banner */}
-        <div className="mb-6">
-          <Button variant="secondary" className="gap-2 font-semibold">
-            <Shield className="h-4 w-4 text-primary" />
-            Add Warranty Protection
-          </Button>
+        {/* Top actions row */}
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+            <ArrowLeft className="h-4 w-4" />
+            Continue Shopping
+          </a>
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
+              <Trash2 className="h-3.5 w-3.5" />
+              Clear Shopping Cart
+            </button>
+            <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <RefreshCw className="h-3.5 w-3.5" />
+              Update Shopping Cart
+            </button>
+            <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+              <Bookmark className="h-3.5 w-3.5" />
+              Save Cart
+            </button>
+          </div>
         </div>
 
         <CartHeader itemCount={totalItems} />
@@ -84,13 +106,26 @@ const Index = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
           <section className="flex-1 min-w-0" aria-label="Cart items">
+            {/* Protection Plan upsell */}
+            <div className="mb-6">
+              <ProtectionPlan />
+            </div>
+
             {items.length === 0 ? (
               <div className="text-center py-16">
                 <p className="text-lg text-muted-foreground">Your cart is empty.</p>
               </div>
             ) : (
               <>
-                <div className="divide-y-0">
+                {/* Column headers (desktop) */}
+                <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-6 px-4 pb-2 text-xs font-medium text-muted-foreground uppercase tracking-wide border-b">
+                  <span>Item</span>
+                  <span className="w-24 text-right">Price</span>
+                  <span className="w-24 text-center">Qty</span>
+                  <span className="w-24 text-right">Subtotal</span>
+                </div>
+
+                <div>
                   {items.map((item) => (
                     <CartItem
                       key={item.id}
@@ -101,28 +136,45 @@ const Index = () => {
                   ))}
                 </div>
 
-                {/* Cart Actions */}
-                <div className="flex flex-wrap gap-3 mt-6 pt-6 border-t">
-                  <Button
-                    variant="outline"
-                    className="font-medium text-muted-foreground hover:text-destructive hover:border-destructive"
-                  >
-                    Clear Shopping Cart
-                  </Button>
-                  <Button variant="secondary" className="font-semibold">
-                    Update Shopping Cart
-                  </Button>
+                {/* Bottom actions */}
+                <div className="flex flex-wrap items-center justify-between gap-3 mt-6 pt-6 border-t">
+                  <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+                    <ArrowLeft className="h-4 w-4" />
+                    Continue Shopping
+                  </a>
+                  <div className="flex items-center gap-3">
+                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
+                      <Trash2 className="h-3.5 w-3.5" />
+                      Clear Shopping Cart
+                    </button>
+                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      <RefreshCw className="h-3.5 w-3.5" />
+                      Update Shopping Cart
+                    </button>
+                    <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+                      <Bookmark className="h-3.5 w-3.5" />
+                      Save Cart
+                    </button>
+                  </div>
                 </div>
               </>
             )}
           </section>
 
           {/* Summary Sidebar */}
-          <aside className="w-full lg:w-[380px] flex-shrink-0">
+          <aside className="w-full lg:w-[380px] flex-shrink-0 space-y-4">
+            <PriceMatchBanner />
             <CartSummary subtotal={subtotal} shipping={0} />
           </aside>
         </div>
       </main>
+
+      {/* ResellerRatings footer */}
+      <footer className="border-t mt-12 py-6 text-center">
+        <p className="text-sm text-muted-foreground">
+          ⭐ <span className="font-bold text-foreground">4.9</span> ResellerRatings · Verified Store
+        </p>
+      </footer>
     </div>
   );
 };

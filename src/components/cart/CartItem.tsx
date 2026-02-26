@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 export interface CartItemData {
   id: string;
   name: string;
+  sku: string;
   image: string;
   price: number;
   qty: number;
@@ -33,9 +34,10 @@ const CartItem = ({ item, onQtyChange, onRemove }: CartItemProps) => {
 
       {/* Product Details */}
       <div className="flex-1 min-w-0">
-        <h3 className="font-semibold text-foreground text-sm md:text-base leading-tight mb-1">
+        <h3 className="font-semibold text-foreground text-sm md:text-base leading-tight mb-0.5">
           {item.name}
         </h3>
+        <p className="text-[11px] text-muted-foreground mb-1">SKU: {item.sku}</p>
 
         {item.options && item.options.length > 0 && (
           <div className="space-y-0.5 mt-1.5">
