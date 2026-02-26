@@ -299,7 +299,13 @@ const Index = () => {
               ========================================== */}
           <aside className="w-full lg:w-[380px] flex-shrink-0 space-y-4">
             <PriceMatchBanner />
-            <CartSummary subtotal={subtotal} shipping={0} />
+            <CartSummary
+              subtotal={subtotal}
+              shipping={299}
+              youSaved={434.58}
+              additionalDiscounts={225.92}
+              shippingMethod="Ground Shipping - Standard Delivery"
+            />
           </aside>
         </div>
       </main>
