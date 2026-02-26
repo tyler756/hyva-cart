@@ -210,15 +210,15 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
                 {appliedCoupons.map((coupon) => (
                   <span
                     key={coupon.code}
-                    className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full pl-2.5 pr-1 py-1"
+                    className="relative inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full pl-2.5 pr-5 py-1"
                   >
                     <Tag className="h-3 w-3" />
                     {coupon.label}
                     <button
-                      className="ml-0.5 rounded-full p-0.5 hover:bg-primary/20 transition-colors"
+                      className="absolute -top-1.5 -right-1.5 flex items-center justify-center h-4 w-4 rounded-full bg-white border border-border shadow-sm hover:bg-muted transition-colors"
                       aria-label={`Remove ${coupon.label}`}
                     >
-                      <X className="h-3 w-3" />
+                      <X className="h-2.5 w-2.5 text-muted-foreground" />
                     </button>
                   </span>
                 ))}
