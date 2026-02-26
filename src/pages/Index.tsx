@@ -172,7 +172,7 @@ const Index = () => {
       {/* ResellerRatings footer */}
       <footer className="border-t mt-12 py-6 text-center">
         <p className="text-sm text-muted-foreground">
-          ⭐ <span className="font-bold text-foreground">4.9</span> ResellerRatings · Verified Store
+          ⭐ <span className="font-bold text-foreground">4.9</span> ResellerRatings · 3,400+ Reviews · Verified Store
         </p>
       </footer>
     </div>
