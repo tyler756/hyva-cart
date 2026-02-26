@@ -141,17 +141,6 @@ const CartSummary = ({ subtotal, shipping }: CartSummaryProps) => {
         Checkout
       </Button>
 
-      {/* Payment method icons */}
-      <div className="flex items-center justify-center gap-2 flex-wrap">
-        {["Amazon", "Visa", "Mastercard", "Amex", "Discover", "PayPal", "Apple Pay", "GPay"].map((method) => (
-          <span
-            key={method}
-            className="text-[10px] text-muted-foreground bg-muted border px-2 py-1 rounded font-medium"
-          >
-            {method}
-          </span>
-        ))}
-      </div>
 
       {/* More checkout options */}
       <div className="border-t pt-4 space-y-2">
