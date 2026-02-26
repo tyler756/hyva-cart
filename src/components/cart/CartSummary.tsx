@@ -63,6 +63,9 @@ import {
 interface CartSummaryProps {
   subtotal: number;
   shipping: number;
+  youSaved?: number;
+  additionalDiscounts?: number;
+  shippingMethod?: string;
 }
 
 /**
@@ -107,25 +110,17 @@ const CollapsibleSection = ({
   );
 };
 
-const CartSummary = ({ subtotal, shipping }: CartSummaryProps) => {
+const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0, shippingMethod }: CartSummaryProps) => {
   const [discountCode, setDiscountCode] = useState("");
-  const grandTotal = subtotal + shipping;
+  const grandTotal = subtotal - additionalDiscounts + shipping;
 
   return (
-    /**
-     * STICKY CONTAINER
-     * `sticky top-6` keeps this panel fixed in viewport as user scrolls.
-     * Requires the parent to be taller than this element to work.
-     * The parent <aside> in Index.tsx does NOT have overflow:hidden,
-     * which is required for sticky to function properly.
-     */
     <div className="bg-card rounded-xl border p-6 sticky top-6 space-y-5">
       <h2 className="font-display text-xl font-bold text-foreground uppercase tracking-wide">
         Summary
       </h2>
 
-      {/* SECTION 1: Discount Code
-          HYVÄ: Wire to Magento coupon API */}
+      {/* SECTION 1: Discount Code */}
       <CollapsibleSection icon={Tag} title="Apply Discount Code">
         <div className="flex gap-2">
           <Input
@@ -140,17 +135,14 @@ const CartSummary = ({ subtotal, shipping }: CartSummaryProps) => {
         </div>
       </CollapsibleSection>
 
-      {/* SECTION 2: Reward Points
-          HYVÄ: Show only for logged-in customers with points balance */}
+      {/* SECTION 2: Reward Points */}
       <CollapsibleSection icon={Gift} title="Redeem Points">
         <p className="text-xs text-muted-foreground">
           Please login to use reward points.
         </p>
       </CollapsibleSection>
 
-      {/* SECTION 3: Shipping & Tax Estimator
-          HYVÄ: Use Magento's estimate-shipping-methods endpoint
-          and populate country/state dropdowns from directory API */}
+      {/* SECTION 3: Shipping & Tax Estimator */}
       <CollapsibleSection icon={Truck} title="Estimate Shipping and Tax">
         <p className="text-xs text-muted-foreground mb-3">
           Enter your destination to get a shipping estimate.
@@ -176,23 +168,51 @@ const CartSummary = ({ subtotal, shipping }: CartSummaryProps) => {
         </div>
       </CollapsibleSection>
 
-      {/* ORDER TOTALS
-          HYVÄ: Pull from Magento's quote/totals API response */}
-      <div className="space-y-2 border-t pt-4">
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Subtotal</span>
+      {/* ORDER TOTALS — matches reference layout:
+          You Saved → Subtotal → Additional Discounts → Shipping & Handling → Grand Total
+          HYVÄ: "You Saved" = catalog price rules (automatic)
+          HYVÄ: "Additional Discounts" = cart price rules / manually entered promo codes */}
+      <div className="space-y-0 border-t pt-4">
+        {youSaved > 0 && (
+          <div className="flex justify-between text-sm py-2.5 border-b">
+            <span className="text-primary font-medium">You Saved</span>
+            <span className="text-primary font-medium">
+              ${youSaved.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </span>
+          </div>
+        )}
+
+        <div className="flex justify-between text-sm py-2.5 border-b">
+          <span className="text-foreground font-medium">Subtotal</span>
           <span className="font-medium text-foreground">
             ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </span>
         </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Shipping</span>
+
+        {additionalDiscounts > 0 && (
+          <div className="flex justify-between text-sm py-2.5 border-b">
+            <span className="text-primary font-medium">Additional Discounts</span>
+            <span className="text-primary font-medium">
+              - ${additionalDiscounts.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </span>
+          </div>
+        )}
+
+        <div className="flex justify-between text-sm py-2.5 border-b">
+          <span className="text-muted-foreground">
+            Shipping &amp; Handling
+            {shippingMethod && (
+              <span className="block text-xs text-muted-foreground/70">
+                ({shippingMethod})
+              </span>
+            )}
+          </span>
           <span className="font-medium text-foreground">
-            {shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}
+            {shipping === 0 ? "Free" : `$${shipping.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
           </span>
         </div>
-        {/* Grand total — uses --secondary (burnished copper) for emphasis */}
-        <div className="flex justify-between text-lg font-bold pt-2 border-t">
+
+        <div className="flex justify-between text-lg font-bold pt-3">
           <span className="text-foreground uppercase">Grand Total</span>
           <span className="text-secondary">
             ${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
