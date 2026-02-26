@@ -79,6 +79,8 @@ const Index = () => {
       <StoreHeader cartCount={totalItems} />
 
       <main className="container max-w-7xl mx-auto px-4 py-8">
+        <CartHeader itemCount={totalItems} />
+
         {/* Top actions row */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <a href="#" className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
@@ -100,8 +102,6 @@ const Index = () => {
             </button>
           </div>
         </div>
-
-        <CartHeader itemCount={totalItems} />
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
