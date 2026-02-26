@@ -1,18 +1,11 @@
 import { DollarSign } from "lucide-react";
 
 const PriceMatchBanner = () => (
-  <div className="bg-accent/50 border border-accent rounded-lg p-4 flex items-center gap-3">
-    <div className="flex-shrink-0 h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-      <DollarSign className="h-5 w-5 text-primary" />
-    </div>
-    <div>
-      <p className="text-sm font-bold text-foreground">
-        PRICE MATCH <span className="text-secondary italic">GUARANTEE</span>
-      </p>
-      <p className="text-xs text-muted-foreground">
-        We'll Match Pricing 15 Days After Purchase
-      </p>
-    </div>
+  <div className="bg-accent/40 rounded-lg px-4 py-3 flex items-center gap-3">
+    <DollarSign className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+    <p className="text-xs text-muted-foreground">
+      <span className="font-semibold text-foreground">Price Match Guarantee</span> — We'll match pricing 15 days after purchase.
+    </p>
   </div>
 );
 
