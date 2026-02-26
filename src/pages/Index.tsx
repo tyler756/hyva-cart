@@ -58,6 +58,47 @@ const initialItems: CartItemData[] = [
       { label: "Decreased Depth", value: 'Decrease to 9"' },
     ],
   },
+  {
+    id: "5",
+    name: 'Euro Cafe 36" Sink Base Cabinet',
+    sku: "EC-SB-3600",
+    image: baseCabinet,
+    originalPrice: 1890.50,
+    price: 1134.30,
+    qty: 1,
+    options: [{ label: "Finished End Panel (required for exposed sides)", value: "1" }],
+  },
+  {
+    id: "6",
+    name: "Midtown Black Shaker 30x30 Wall Cabinet",
+    sku: "SW-W3030",
+    image: wallCabinet,
+    originalPrice: 3245.00,
+    price: 1947.00,
+    qty: 1,
+    options: [
+      { label: "Hinged", value: "Right" },
+      { label: "Matching Interior", value: "No" },
+    ],
+  },
+  {
+    id: "7",
+    name: 'Euro Cafe 18" 3-Drawer Base Cabinet',
+    sku: "EC-BC-1802",
+    image: baseCabinet,
+    originalPrice: 1725.00,
+    price: 1035.00,
+    qty: 1,
+    options: [{ label: "Finished End Panel (required for exposed sides)", value: "2" }],
+  },
+  {
+    id: "8",
+    name: "Euro Cafe Sample Door - White Oak",
+    sku: "EC-SD-002",
+    image: cabinetDoor,
+    price: 25.0,
+    qty: 1,
+  },
 ];
 
 const Index = () => {
