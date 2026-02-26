@@ -145,7 +145,7 @@ const CartSummary = ({ subtotal, shipping }: CartSummaryProps) => {
       {/* More checkout options */}
       <div className="border-t pt-4 space-y-2">
         <p className="text-xs text-center text-muted-foreground uppercase tracking-wide font-medium">
-          More Checkout Options
+          Express Checkout Options
         </p>
         <div className="space-y-1.5">
           {["Checkout with bread pay", "Checkout with Sezzle", "PayPal", "Check by mail", "Pay with multiple cards"].map((opt) => (
