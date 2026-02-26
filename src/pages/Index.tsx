@@ -174,6 +174,21 @@ const Index = () => {
           ⭐ <span className="font-bold text-foreground">4.9</span> ResellerRatings · 3,400+ Reviews · Verified Store
         </p>
       </footer>
+
+      {/* Sticky mobile checkout CTA */}
+      {items.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-background border-t shadow-[0_-4px_12px_rgba(0,0,0,0.1)] px-4 py-3">
+          <div className="flex items-center justify-between gap-4">
+            <div className="text-sm">
+              <span className="text-muted-foreground">Total: </span>
+              <span className="text-lg font-bold text-foreground">${subtotal.toFixed(2)}</span>
+            </div>
+            <Button className="flex-1 max-w-[220px] h-11 text-sm font-semibold">
+              Proceed to Checkout
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
