@@ -7,6 +7,7 @@ export interface CartItemData {
   sku: string;
   image: string;
   price: number;
+  originalPrice?: number;
   qty: number;
   options?: { label: string; value: string }[];
 }
@@ -19,6 +20,8 @@ interface CartItemProps {
 
 const CartItem = ({ item, onQtyChange, onRemove }: CartItemProps) => {
   const subtotal = item.price * item.qty;
+  const originalSubtotal = item.originalPrice ? item.originalPrice * item.qty : null;
+  const hasDiscount = !!item.originalPrice && item.originalPrice > item.price;
 
   return (
     <div className="group flex gap-4 md:gap-6 py-6 border-b last:border-b-0 transition-colors hover:bg-muted/30 -mx-4 px-4 rounded-lg">
@@ -50,20 +53,43 @@ const CartItem = ({ item, onQtyChange, onRemove }: CartItemProps) => {
         )}
 
         {/* Mobile price */}
-        <p className="mt-2 text-sm font-semibold text-foreground md:hidden">
-          ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-        </p>
+        <div className="mt-2 md:hidden">
+          {hasDiscount && (
+            <p className="text-xs text-muted-foreground line-through">
+              ${originalSubtotal!.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </p>
+          )}
+          <p className={`text-sm font-semibold ${hasDiscount ? 'text-destructive' : 'text-foreground'}`}>
+            ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </p>
+        </div>
       </div>
 
       {/* Price (desktop) */}
       <div className="hidden md:flex flex-col items-end justify-between">
-        <div className="text-right">
-          <p className="text-xs text-muted-foreground">
-            ${item.price.toLocaleString("en-US", { minimumFractionDigits: 2 })} each
-          </p>
-          <p className="text-base font-semibold text-foreground mt-0.5">
-            ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-          </p>
+        <div className="text-right space-y-1">
+          {/* Unit price */}
+          <div>
+            {hasDiscount && (
+              <p className="text-xs text-muted-foreground line-through">
+                ${item.originalPrice!.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </p>
+            )}
+            <p className={`text-xs ${hasDiscount ? 'text-destructive font-semibold' : 'text-muted-foreground'}`}>
+              ${item.price.toLocaleString("en-US", { minimumFractionDigits: 2 })} each
+            </p>
+          </div>
+          {/* Subtotal */}
+          <div>
+            {hasDiscount && originalSubtotal && (
+              <p className="text-sm text-muted-foreground line-through">
+                ${originalSubtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </p>
+            )}
+            <p className={`text-base font-semibold ${hasDiscount ? 'text-destructive' : 'text-foreground'}`}>
+              ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </p>
+          </div>
         </div>
       </div>
 

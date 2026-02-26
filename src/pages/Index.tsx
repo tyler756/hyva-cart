@@ -27,6 +27,7 @@ const initialItems: CartItemData[] = [
     name: 'Euro Cafe 12" 2-Drawer Base Cabinet with 1 Inner Drawer',
     sku: "EC-BC-1200",
     image: baseCabinet,
+    originalPrice: 1685.18,
     price: 1011.11,
     qty: 1,
     options: [{ label: "Finished End Panel (required for exposed sides)", value: "1" }],
@@ -36,6 +37,7 @@ const initialItems: CartItemData[] = [
     name: 'Euro Cafe 12" 2-Drawer Base Cabinet',
     sku: "EC-BC-1201",
     image: baseCabinet,
+    originalPrice: 1573.78,
     price: 944.27,
     qty: 2,
     options: [{ label: "Finished End Panel (required for exposed sides)", value: "2" }],
@@ -45,6 +47,7 @@ const initialItems: CartItemData[] = [
     name: "Midtown Black Shaker 18x15 Wall Cabinet",
     sku: "SW-W1830",
     image: wallCabinet,
+    originalPrice: 2672.85,
     price: 1603.71,
     qty: 1,
     options: [
