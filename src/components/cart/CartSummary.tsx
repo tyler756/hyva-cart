@@ -182,7 +182,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
           HYVÄ: "Additional Discounts" = cart price rules / manually entered promo codes */}
       <div className="space-y-0 border-t pt-4">
         {youSaved > 0 && (
-          <div className="flex justify-between text-sm py-2.5">
+          <div className="flex justify-between text-sm py-2.5 border-b">
             <span className="text-primary font-medium">You Saved</span>
             <span className="text-primary font-medium">
               ${youSaved.toLocaleString("en-US", { minimumFractionDigits: 2 })}
@@ -190,7 +190,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
           </div>
         )}
 
-        <div className="flex justify-between text-sm py-2.5">
+        <div className="flex justify-between text-sm py-2.5 border-b">
           <span className="text-foreground font-medium">Subtotal</span>
           <span className="font-medium text-foreground">
             ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
@@ -198,7 +198,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
         </div>
 
         {additionalDiscounts > 0 && (
-          <div className="py-2.5">
+          <div className="py-2.5 border-b">
             <div className="flex justify-between text-sm">
               <span className="text-primary font-medium">Additional Discounts</span>
               <span className="text-primary font-medium">
@@ -227,7 +227,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
           </div>
         )}
 
-        <div className="flex justify-between text-sm py-2.5">
+        <div className="flex justify-between text-sm py-2.5 border-b">
           <span className="text-muted-foreground">
             Shipping &amp; Handling
             {shippingMethod && (
