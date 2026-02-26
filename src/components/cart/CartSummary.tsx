@@ -58,6 +58,7 @@ import {
   ShieldCheck,
   Zap,
   Lock,
+  X,
 } from "lucide-react";
 
 interface AppliedCoupon {
@@ -209,10 +210,16 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
                 {appliedCoupons.map((coupon) => (
                   <span
                     key={coupon.code}
-                    className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full px-2.5 py-1"
+                    className="inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full pl-2.5 pr-1 py-1"
                   >
                     <Tag className="h-3 w-3" />
                     {coupon.label}
+                    <button
+                      className="ml-0.5 rounded-full p-0.5 hover:bg-primary/20 transition-colors"
+                      aria-label={`Remove ${coupon.label}`}
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
                   </span>
                 ))}
               </div>
