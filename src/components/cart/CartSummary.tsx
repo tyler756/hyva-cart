@@ -70,6 +70,7 @@ interface CartSummaryProps {
   subtotal: number;
   shipping: number;
   youSaved?: number;
+  redeemPoints?: { points: number; discount: number };
   additionalDiscounts?: number;
   shippingMethod?: string;
   tax?: number;
@@ -118,9 +119,10 @@ const CollapsibleSection = ({
   );
 };
 
-const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0, shippingMethod, tax = 0, appliedCoupons = [] }: CartSummaryProps) => {
+const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additionalDiscounts = 0, shippingMethod, tax = 0, appliedCoupons = [] }: CartSummaryProps) => {
   const [discountCode, setDiscountCode] = useState("");
-  const grandTotal = subtotal - additionalDiscounts + shipping + tax;
+  const pointsDiscount = redeemPoints?.discount ?? 0;
+  const grandTotal = subtotal - additionalDiscounts - pointsDiscount + shipping + tax;
 
   return (
     <div className="bg-card rounded-xl border p-6 sticky top-6 space-y-5">
@@ -196,6 +198,20 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, additionalDiscounts = 0
             ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </span>
         </div>
+
+        {redeemPoints && redeemPoints.discount > 0 && (
+          <div className="flex justify-between text-sm py-2.5 border-b">
+            <span className="text-primary font-medium">
+              Redeem Points
+              <span className="block text-xs text-primary/70">
+                ({redeemPoints.points.toLocaleString()} pts)
+              </span>
+            </span>
+            <span className="text-primary font-medium">
+              - ${redeemPoints.discount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </span>
+          </div>
+        )}
 
         {additionalDiscounts > 0 && (
           <div className="py-2.5 border-b">

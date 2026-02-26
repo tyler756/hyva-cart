@@ -303,6 +303,7 @@ const Index = () => {
               subtotal={subtotal}
               shipping={299}
               youSaved={434.58}
+              redeemPoints={{ points: 500, discount: 50.00 }}
               additionalDiscounts={225.92}
               shippingMethod="Ground Shipping - Standard Delivery"
               tax={132.27}
