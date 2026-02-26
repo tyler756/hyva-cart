@@ -26,7 +26,7 @@ const CartItem = ({ item, onQtyChange, onRemove }: CartItemProps) => {
   const hasDiscount = !!item.originalPrice && item.originalPrice > item.price;
 
   return (
-    <div className="group py-3 border-b last:border-b-0">
+    <div className="group relative py-3 border-b last:border-b-0">
       {/* Desktop layout */}
       <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-6 items-center">
         {/* Item info */}
@@ -92,7 +92,7 @@ const CartItem = ({ item, onQtyChange, onRemove }: CartItemProps) => {
       </div>
 
       {/* Action buttons (desktop) */}
-      <div className="hidden md:flex justify-end gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="hidden md:flex absolute right-0 bottom-3 gap-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
         <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
           <Pencil className="h-3.5 w-3.5" />
         </Button>
