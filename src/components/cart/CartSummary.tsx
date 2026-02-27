@@ -207,7 +207,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additiona
 
       {/* ORDER TOTALS */}
       <div className="mt-4">
-        <div className="bg-slate-50 rounded-xl px-4 py-3">
+        <div className="bg-slate-100 border border-slate-200/70 rounded-xl px-4 py-3">
           {youSaved > 0 && (
             <div className="flex justify-between items-start text-sm py-2">
               <span className="text-slate-600 font-normal">You Saved</span>
@@ -273,7 +273,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additiona
             </span>
           </div>
 
-          <div className="border-t border-slate-200 mt-2 pt-3">
+          <div className="border-t border-slate-200/80 mt-2 pt-3">
             <div className="flex justify-between items-start">
               <span className="text-sm tracking-wide font-semibold text-slate-900 uppercase">Grand Total</span>
               <span className="text-lg font-semibold text-amber-700">
@@ -285,7 +285,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additiona
       </div>
 
       {/* TERMS & CONDITIONS */}
-      <p className="text-[11px] text-muted-foreground text-center mt-4">
+      <p className="text-[11px] text-muted-foreground text-center mt-3">
         By placing your order, you agree to The RTA Store's{" "}
         <a href="#" className="underline hover:text-foreground">terms and conditions</a>.
       </p>
