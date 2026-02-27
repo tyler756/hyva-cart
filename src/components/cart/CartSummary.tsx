@@ -182,94 +182,97 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additiona
           You Saved → Subtotal → Additional Discounts → Shipping & Handling → Grand Total
           HYVÄ: "You Saved" = catalog price rules (automatic)
           HYVÄ: "Additional Discounts" = cart price rules / manually entered promo codes */}
-      <div className="space-y-0 border-t pt-4">
-        {youSaved > 0 && (
-          <div className="flex justify-between text-sm py-2.5 border-b">
-            <span className="text-primary font-medium">You Saved</span>
-            <span className="text-primary font-medium">
-              ${youSaved.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-            </span>
-          </div>
-        )}
-
-        <div className="flex justify-between text-sm py-2.5 border-b">
-          <span className="text-foreground font-medium">Subtotal</span>
-          <span className="font-medium text-foreground">
-            ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-          </span>
-        </div>
-
-        {redeemPoints && redeemPoints.discount > 0 && (
-          <div className="flex justify-between text-sm py-2.5 border-b">
-            <span className="text-primary font-medium">
-              Redeem Points
-              <span className="block text-xs text-primary/70">
-                ({redeemPoints.points.toLocaleString()} pts)
-              </span>
-            </span>
-            <span className="text-primary font-medium">
-              - ${redeemPoints.discount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-            </span>
-          </div>
-        )}
-
-        {additionalDiscounts > 0 && (
-          <div className="py-2.5 border-b">
-            <div className="flex justify-between text-sm">
-              <span className="text-primary font-medium">Additional Discounts</span>
+      <div className="border-t pt-4">
+        <div className="bg-muted/40 rounded-xl px-4 py-3 space-y-0">
+          {youSaved > 0 && (
+            <div className="flex justify-between text-sm py-2.5">
+              <span className="text-primary font-medium">You Saved</span>
               <span className="text-primary font-medium">
-                - ${additionalDiscounts.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                ${youSaved.toLocaleString("en-US", { minimumFractionDigits: 2 })}
               </span>
             </div>
-            {appliedCoupons.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                {appliedCoupons.map((coupon) => (
-                  <span
-                    key={coupon.code}
-                    className="relative inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full pl-2.5 pr-5 py-1"
-                  >
-                    <Tag className="h-3 w-3" />
-                    {coupon.label}
-                    <button
-                      className="absolute -top-1.5 -right-1.5 flex items-center justify-center h-4 w-4 rounded-full bg-white border border-border shadow-sm hover:bg-muted transition-colors"
-                      aria-label={`Remove ${coupon.label}`}
-                    >
-                      <X className="h-2.5 w-2.5 text-muted-foreground" />
-                    </button>
-                  </span>
-                ))}
-              </div>
-            )}
+          )}
+
+          <div className="flex justify-between text-sm py-2.5">
+            <span className="text-muted-foreground">Subtotal</span>
+            <span className="font-medium text-foreground">
+              ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </span>
           </div>
-        )}
 
-        <div className="flex justify-between text-sm py-2.5 border-b">
-          <span className="text-muted-foreground">
-            Shipping &amp; Handling
-            {shippingMethod && (
-              <span className="block text-xs text-muted-foreground/70">
-                ({shippingMethod})
+          {redeemPoints && redeemPoints.discount > 0 && (
+            <div className="flex justify-between text-sm py-2.5">
+              <span className="text-primary font-medium">
+                Redeem Points
+                <span className="block text-xs text-primary/70">
+                  ({redeemPoints.points.toLocaleString()} pts)
+                </span>
               </span>
-            )}
-          </span>
-          <span className="font-medium text-foreground">
-            {shipping === 0 ? "Free" : `$${shipping.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
-          </span>
-        </div>
+              <span className="text-primary font-medium">
+                - ${redeemPoints.discount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </span>
+            </div>
+          )}
 
-        {/* Tax */}
-        <div className="flex justify-between text-sm py-2.5 border-b">
-          <span className="text-muted-foreground">Tax</span>
-          <span className="font-medium text-foreground">
-            ${tax.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-          </span>
-        </div>
+          {additionalDiscounts > 0 && (
+            <div className="py-2.5">
+              <div className="flex justify-between text-sm">
+                <span className="text-primary font-medium">Additional Discounts</span>
+                <span className="text-primary font-medium">
+                  - ${additionalDiscounts.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                </span>
+              </div>
+              {appliedCoupons.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {appliedCoupons.map((coupon) => (
+                    <span
+                      key={coupon.code}
+                      className="relative inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full pl-2.5 pr-5 py-1"
+                    >
+                      <Tag className="h-3 w-3" />
+                      {coupon.label}
+                      <button
+                        className="absolute -top-1.5 -right-1.5 flex items-center justify-center h-4 w-4 rounded-full bg-white border border-border shadow-sm hover:bg-muted transition-colors"
+                        aria-label={`Remove ${coupon.label}`}
+                      >
+                        <X className="h-2.5 w-2.5 text-muted-foreground" />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
-        <div className="flex justify-between text-lg font-bold pt-3">
-          <span className="text-foreground uppercase">Grand Total</span>
-          <span className="text-secondary">
-            ${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-          </span>
+          <div className="flex justify-between text-sm py-2.5">
+            <span className="text-muted-foreground">
+              Shipping &amp; Handling
+              {shippingMethod && (
+                <span className="block text-xs text-muted-foreground/70">
+                  ({shippingMethod})
+                </span>
+              )}
+            </span>
+            <span className="font-medium text-foreground">
+              {shipping === 0 ? "Free" : `$${shipping.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
+            </span>
+          </div>
+
+          <div className="flex justify-between text-sm py-2.5">
+            <span className="text-muted-foreground">Tax</span>
+            <span className="font-medium text-foreground">
+              ${tax.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+            </span>
+          </div>
+
+          <div className="border-t border-border/60 mt-1 pt-3">
+            <div className="flex justify-between text-lg font-bold">
+              <span className="text-foreground uppercase">Grand Total</span>
+              <span className="text-secondary">
+                ${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
