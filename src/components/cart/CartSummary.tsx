@@ -119,6 +119,33 @@ const CollapsibleSection = ({
   );
 };
 
+/**
+ * CHIP ROW for applied coupons – single-line with "+N more" overflow.
+ */
+const ChipRow = ({ coupons }: { coupons: AppliedCoupon[] }) => {
+  const maxVisible = 2;
+  const visible = coupons.slice(0, maxVisible);
+  const hiddenCount = coupons.length - maxVisible;
+
+  return (
+    <div className="flex flex-wrap gap-2 mt-1 overflow-hidden max-h-6">
+      {visible.map((coupon) => (
+        <span
+          key={coupon.code}
+          className="inline-flex items-center rounded-full bg-white px-2 py-0.5 text-xs text-slate-700 border border-slate-200 whitespace-nowrap"
+        >
+          {coupon.label}
+        </span>
+      ))}
+      {hiddenCount > 0 && (
+        <span className="inline-flex items-center rounded-full bg-white px-2 py-0.5 text-xs text-slate-700 border border-slate-200 whitespace-nowrap">
+          +{hiddenCount} more
+        </span>
+      )}
+    </div>
+  );
+};
+
 const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additionalDiscounts = 0, shippingMethod, tax = 0, appliedCoupons = [] }: CartSummaryProps) => {
   const [discountCode, setDiscountCode] = useState("");
   const pointsDiscount = redeemPoints?.discount ?? 0;
@@ -178,97 +205,78 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additiona
         </div>
       </CollapsibleSection>
 
-      {/* ORDER TOTALS — matches reference layout:
-          You Saved → Subtotal → Additional Discounts → Shipping & Handling → Grand Total
-          HYVÄ: "You Saved" = catalog price rules (automatic)
-          HYVÄ: "Additional Discounts" = cart price rules / manually entered promo codes */}
-      <div className="border-t pt-4">
-        <div className="bg-muted/40 rounded-xl px-4 py-3 space-y-0">
+      {/* ORDER TOTALS */}
+      <div className="mt-4">
+        <div className="bg-slate-50 rounded-xl px-4 py-3">
           {youSaved > 0 && (
-            <div className="flex justify-between text-sm py-2.5">
-              <span className="text-primary font-medium">You Saved</span>
-              <span className="text-primary font-medium">
+            <div className="flex justify-between items-start text-sm py-2">
+              <span className="text-slate-600 font-normal">You Saved</span>
+              <span className="text-emerald-700 font-medium">
                 ${youSaved.toLocaleString("en-US", { minimumFractionDigits: 2 })}
               </span>
             </div>
           )}
 
-          <div className="flex justify-between text-sm py-2.5">
-            <span className="text-muted-foreground">Subtotal</span>
-            <span className="font-medium text-foreground">
+          <div className="flex justify-between items-start text-sm py-2">
+            <span className="text-slate-600 font-normal">Subtotal</span>
+            <span className="text-slate-900 font-medium">
               ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </span>
           </div>
 
           {redeemPoints && redeemPoints.discount > 0 && (
-            <div className="flex justify-between text-sm py-2.5">
-              <span className="text-primary font-medium">
+            <div className="flex justify-between items-start text-sm py-2">
+              <span className="text-slate-600 font-normal">
                 Redeem Points
-                <span className="block text-xs text-primary/70">
+                <span className="block text-xs text-slate-500">
                   ({redeemPoints.points.toLocaleString()} pts)
                 </span>
               </span>
-              <span className="text-primary font-medium">
+              <span className="text-emerald-700 font-medium">
                 - ${redeemPoints.discount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
               </span>
             </div>
           )}
 
           {additionalDiscounts > 0 && (
-            <div className="py-2.5">
-              <div className="flex justify-between text-sm">
-                <span className="text-primary font-medium">Additional Discounts</span>
-                <span className="text-primary font-medium">
+            <div className="py-2">
+              <div className="flex justify-between items-start text-sm">
+                <span className="text-slate-600 font-normal">Additional Discounts</span>
+                <span className="text-emerald-700 font-medium">
                   - ${additionalDiscounts.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                 </span>
               </div>
               {appliedCoupons.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  {appliedCoupons.map((coupon) => (
-                    <span
-                      key={coupon.code}
-                      className="relative inline-flex items-center gap-1 text-xs font-medium bg-primary/10 text-primary rounded-full pl-2.5 pr-5 py-1"
-                    >
-                      <Tag className="h-3 w-3" />
-                      {coupon.label}
-                      <button
-                        className="absolute -top-1.5 -right-1.5 flex items-center justify-center h-4 w-4 rounded-full bg-white border border-border shadow-sm hover:bg-muted transition-colors"
-                        aria-label={`Remove ${coupon.label}`}
-                      >
-                        <X className="h-2.5 w-2.5 text-muted-foreground" />
-                      </button>
-                    </span>
-                  ))}
-                </div>
+                <ChipRow coupons={appliedCoupons} />
               )}
             </div>
           )}
 
-          <div className="flex justify-between text-sm py-2.5">
-            <span className="text-muted-foreground">
+          <div className="flex justify-between items-start text-sm py-2">
+            <span className="text-slate-600 font-normal">
               Shipping &amp; Handling
               {shippingMethod && (
-                <span className="block text-xs text-muted-foreground/70">
+                <span className="block text-xs text-slate-500">
                   ({shippingMethod})
                 </span>
               )}
             </span>
-            <span className="font-medium text-foreground">
+            <span className="text-slate-900 font-medium">
               {shipping === 0 ? "Free" : `$${shipping.toLocaleString("en-US", { minimumFractionDigits: 2 })}`}
             </span>
           </div>
 
-          <div className="flex justify-between text-sm py-2.5">
-            <span className="text-muted-foreground">Tax</span>
-            <span className="font-medium text-foreground">
+          <div className="flex justify-between items-start text-sm py-2">
+            <span className="text-slate-600 font-normal">Tax</span>
+            <span className="text-slate-900 font-medium">
               ${tax.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </span>
           </div>
 
-          <div className="border-t border-border/60 mt-1 pt-3">
-            <div className="flex justify-between text-lg font-bold">
-              <span className="text-foreground uppercase">Grand Total</span>
-              <span className="text-secondary">
+          <div className="border-t border-slate-200 mt-2 pt-3">
+            <div className="flex justify-between items-start">
+              <span className="text-sm tracking-wide font-semibold text-slate-900 uppercase">Grand Total</span>
+              <span className="text-lg font-semibold text-amber-700">
                 ${grandTotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
               </span>
             </div>
@@ -277,7 +285,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additiona
       </div>
 
       {/* TERMS & CONDITIONS */}
-      <p className="text-[11px] text-muted-foreground text-center">
+      <p className="text-[11px] text-muted-foreground text-center mt-4">
         By placing your order, you agree to The RTA Store's{" "}
         <a href="#" className="underline hover:text-foreground">terms and conditions</a>.
       </p>
