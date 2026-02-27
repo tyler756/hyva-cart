@@ -215,18 +215,18 @@ const Index = () => {
                 <ArrowLeft className="h-4 w-4" />
                 Continue Shopping
               </a>
-              <div className="flex items-center gap-3">
-              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
+              <div className="flex items-center gap-2 sm:gap-3">
+              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors" title="Clear Shopping Cart">
                 <Trash2 className="h-3.5 w-3.5" />
-                Clear Shopping Cart
+                <span className="hidden sm:inline">Clear Shopping Cart</span>
               </button>
-              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors" title="Update Shopping Cart">
                 <RefreshCw className="h-3.5 w-3.5" />
-                Update Shopping Cart
+                <span className="hidden sm:inline">Update Shopping Cart</span>
               </button>
-              <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+              <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline" title="Save Cart">
                 <Bookmark className="h-3.5 w-3.5" />
-                Save Cart
+                <span className="hidden sm:inline">Save Cart</span>
               </button>
               </div>
             </div>
@@ -272,18 +272,18 @@ const Index = () => {
                     <ArrowLeft className="h-4 w-4" />
                     Continue Shopping
                   </a>
-                  <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-destructive transition-colors" title="Clear Shopping Cart">
                       <Trash2 className="h-3.5 w-3.5" />
-                      Clear Shopping Cart
+                      <span className="hidden sm:inline">Clear Shopping Cart</span>
                     </button>
-                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors" title="Update Shopping Cart">
                       <RefreshCw className="h-3.5 w-3.5" />
-                      Update Shopping Cart
+                      <span className="hidden sm:inline">Update Shopping Cart</span>
                     </button>
-                    <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline">
+                    <button className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline" title="Save Cart">
                       <Bookmark className="h-3.5 w-3.5" />
-                      Save Cart
+                      <span className="hidden sm:inline">Save Cart</span>
                     </button>
                   </div>
                 </div>
