@@ -128,17 +128,17 @@ const ChipRow = ({ coupons }: { coupons: AppliedCoupon[] }) => {
   const hiddenCount = coupons.length - maxVisible;
 
   return (
-    <div className="flex flex-wrap gap-2 mt-1 overflow-hidden max-h-6">
+    <div className="flex gap-1.5 mt-1 overflow-hidden max-h-5">
       {visible.map((coupon) => (
         <span
           key={coupon.code}
-          className="inline-flex items-center rounded-full bg-white px-2 py-0.5 text-xs text-slate-700 border border-slate-200 whitespace-nowrap"
+          className="inline-flex items-center rounded-full bg-slate-50 px-1.5 py-px text-[11px] text-slate-500 border border-slate-200/50 whitespace-nowrap"
         >
           {coupon.label}
         </span>
       ))}
       {hiddenCount > 0 && (
-        <span className="inline-flex items-center rounded-full bg-white px-2 py-0.5 text-xs text-slate-700 border border-slate-200 whitespace-nowrap">
+        <span className="inline-flex items-center rounded-full bg-slate-50 px-1.5 py-px text-[11px] text-slate-500 border border-slate-200/50 whitespace-nowrap">
           +{hiddenCount} more
         </span>
       )}
@@ -273,7 +273,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additiona
             </span>
           </div>
 
-          <div className="border-t border-slate-200/80 mt-2 pt-3">
+          <div className="border-t border-slate-300 mt-2 pt-3">
             <div className="flex justify-between items-start">
               <span className="text-sm tracking-wide font-semibold text-slate-900 uppercase">Grand Total</span>
               <span className="text-lg font-semibold text-amber-700">
