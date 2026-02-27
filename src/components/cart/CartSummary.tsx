@@ -128,7 +128,7 @@ const ChipRow = ({ coupons }: { coupons: AppliedCoupon[] }) => {
   const hiddenCount = coupons.length - maxVisible;
 
   return (
-    <div className="flex gap-1.5 mt-1 overflow-hidden max-h-5">
+    <div className="flex gap-1.5 mt-0.5 overflow-hidden max-h-5">
       {visible.map((coupon) => (
         <span
           key={coupon.code}
