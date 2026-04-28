@@ -238,21 +238,26 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, youSavedCoupons = [], r
       {/* ORDER TOTALS */}
       <div className="mt-4">
         <div className="bg-slate-100 border border-slate-200/70 rounded-xl px-4 py-3">
-          {youSaved > 0 && (
-            <div className="flex justify-between items-start text-sm py-2">
-              <span className="text-slate-600 font-normal">You Saved</span>
-              <span className="text-emerald-700 font-medium">
-                ${youSaved.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-              </span>
-            </div>
-          )}
-
           <div className="flex justify-between items-start text-sm py-2">
             <span className="text-slate-600 font-normal">Subtotal</span>
             <span className="text-slate-900 font-medium">
               ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </span>
           </div>
+
+          {youSaved > 0 && (
+            <div className="py-2">
+              <div className="flex justify-between items-start text-sm">
+                <span className="text-slate-600 font-normal">You Saved</span>
+                <span className="text-emerald-700 font-medium">
+                  - ${youSaved.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                </span>
+              </div>
+              {youSavedCoupons.length > 0 && (
+                <ChipRow coupons={youSavedCoupons} />
+              )}
+            </div>
+          )}
 
           {redeemPoints && redeemPoints.discount > 0 && (
             <div className="flex justify-between items-start text-sm py-2">
@@ -277,7 +282,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, youSavedCoupons = [], r
                 </span>
               </div>
               {appliedCoupons.length > 0 && (
-                <ChipRow coupons={appliedCoupons} />
+                <VerticalChipList coupons={appliedCoupons} />
               )}
             </div>
           )}
