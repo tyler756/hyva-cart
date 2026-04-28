@@ -254,7 +254,7 @@ const CartSummary = ({ subtotal, shipping, youSaved = 0, youSavedCoupons = [], r
                 </span>
               </div>
               {youSavedCoupons.length > 0 && (
-                <ChipRow coupons={youSavedCoupons} />
+                <VerticalChipList coupons={youSavedCoupons} />
               )}
             </div>
           )}
