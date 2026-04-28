@@ -70,6 +70,7 @@ interface CartSummaryProps {
   subtotal: number;
   shipping: number;
   youSaved?: number;
+  youSavedCoupons?: AppliedCoupon[];
   redeemPoints?: { points: number; discount: number };
   additionalDiscounts?: number;
   shippingMethod?: string;
@@ -120,6 +121,29 @@ const CollapsibleSection = ({
 };
 
 /**
+ * VERTICAL CHIP LIST – chips stacked one per line.
+ * Used under "Additional Discounts".
+ */
+const VerticalChipList = ({ coupons }: { coupons: AppliedCoupon[] }) => (
+  <div className="flex flex-col gap-1.5 mt-2 items-start">
+    {coupons.map((coupon) => (
+      <span
+        key={coupon.code}
+        className="relative inline-flex items-center rounded-full bg-slate-50 pl-1.5 pr-4 py-px text-[11px] text-slate-500 border border-slate-200/50 whitespace-nowrap"
+      >
+        {coupon.label}
+        <button
+          className="absolute -top-1.5 -right-1.5 flex items-center justify-center h-3.5 w-3.5 rounded-full bg-white border border-slate-200 shadow-sm hover:bg-slate-100 transition-colors"
+          aria-label={`Remove ${coupon.label}`}
+        >
+          <X className="h-2 w-2 text-slate-400" />
+        </button>
+      </span>
+    ))}
+  </div>
+);
+
+/**
  * CHIP ROW for applied coupons – single-line with "+N more" overflow.
  */
 const ChipRow = ({ coupons }: { coupons: AppliedCoupon[] }) => {
@@ -152,7 +176,7 @@ const ChipRow = ({ coupons }: { coupons: AppliedCoupon[] }) => {
   );
 };
 
-const CartSummary = ({ subtotal, shipping, youSaved = 0, redeemPoints, additionalDiscounts = 0, shippingMethod, tax = 0, appliedCoupons = [] }: CartSummaryProps) => {
+const CartSummary = ({ subtotal, shipping, youSaved = 0, youSavedCoupons = [], redeemPoints, additionalDiscounts = 0, shippingMethod, tax = 0, appliedCoupons = [] }: CartSummaryProps) => {
   const [discountCode, setDiscountCode] = useState("");
   const pointsDiscount = redeemPoints?.discount ?? 0;
   const grandTotal = subtotal - additionalDiscounts - pointsDiscount + shipping + tax;
