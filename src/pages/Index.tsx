@@ -303,6 +303,10 @@ const Index = () => {
               subtotal={subtotal}
               shipping={299}
               youSaved={434.58}
+              youSavedCoupons={[
+                { code: "FINISH12", label: "Finish Promo (12%)" },
+                { code: "FINISH25", label: "Finish Promo (25%)" },
+              ]}
               redeemPoints={{ points: 50, discount: 50.00 }}
               additionalDiscounts={225.92}
               shippingMethod="Ground Shipping - Standard Delivery"
